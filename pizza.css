@@ -1,0 +1,63 @@
+body {
+    background-image: url("img/background.jpg");
+}
+
+li {
+    color: blue;
+}
+
+#pizza {
+    width: 280px;
+    height: 300px;
+    margin: 0px;
+    margin-right: 20px;
+    background-color: yellow;
+
+}
+
+#pizza_inp{
+    width: 20px;
+}
+
+#selected {
+    width: 320px;
+    height: 300px;
+    margin: 0px;
+    margin-right: 20px;
+    background-color: yellow;
+}
+
+h1{
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+}
+
+
+main{
+    margin: auto;
+    margin-top: 200px;
+    opacity: 0.9;
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: space-between;
+}
+
+#toppings{
+    width: 320px;
+    height: 280px;
+    display: none;
+    margin: 0px;
+    margin-right: 20px;
+    background-color: yellow;
+}
+
+#sizes {
+    width: 320px;
+    height: 280px;
+    display: none;
+    margin: 0px;
+    margin-right: 20px;
+    background-color: yellow;
+}
