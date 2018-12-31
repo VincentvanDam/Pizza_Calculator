@@ -1,4 +1,5 @@
 var myOl = document.getElementById("pizza");
+var myUl = document.getElementById("toppings");
 var pizzaValue = 0;
 
 // all pizza's
@@ -6,6 +7,13 @@ var pizzaList = [
     {name: 'Hawaii', img: 'img/hawaii.png', price: 4},
     {name: 'Salami', img: 'img/salami.png', price: 5},
     {name: 'Cheeseburger', img: 'img/cheeseburger.png', price: 6}];
+
+// all toppings
+var toppings = [
+    {name: 'Extra ui', price: 1},
+    {name: 'Extra kaas', price: 1.50},
+    {name: 'Extra saus', price: 1}
+];
 
 // show all the pizza's in ul element
 for (var i = 0; i < pizzaList.length; i++){
@@ -19,8 +27,25 @@ for (var i = 0; i < pizzaList.length; i++){
     pizza.appendChild(document.createTextNode(pizzaList[i].name));
 }
 
+// show all the toppings
+for (var x = 0; x < toppings.length; x++){
+    var checkbox = document.createElement("input");
+    var label = document.createElement("label");
+    var br = document.createElement("br");
+    checkbox.id = toppings[x].name + "Checkbox";
+    checkbox.type = "checkbox";
+    checkbox.value = toppings[x].price;
+    checkbox.onchange = function () {toppingCost(this.value)};
+    myUl.appendChild(checkbox);
+    myUl.appendChild(label);
+    myUl.appendChild(br);
+    label.appendChild(document.createTextNode(toppings[x].name));
+
+}
+
 // show the info of specific pizza
 function showInfo(event){
+    document.getElementById("toppings").style.display = "block";
     pizzaValue = 0;
     pizzaList.forEach(function (pizza) {
         if (pizza.name == event.target.pizzaName) {
