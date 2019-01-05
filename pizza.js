@@ -1,6 +1,8 @@
 var myOl = document.getElementById("pizza");
 var myUl = document.getElementById("toppings");
 var pizzaValue = 0;
+var totalTopping = 0;
+var totalPrice = 0;
 
 // all pizza's
 var pizzaList = [
@@ -54,3 +56,18 @@ function showInfo(event){
         }
     });
 }
+
+//checks toppings and counts price
+function toppingCost() {
+    totalTopping = 0;
+    for(var i = 0; i < toppings.length; i++ ) {
+        var toppingCheckboxId = toppings[i].name + "Checkbox";
+        var toppingCheckboxElement = document.getElementById(toppingCheckboxId);
+        if(toppingCheckboxElement.checked){
+            totalTopping = totalTopping + toppings[i].price;
+        }
+        totalPrice = pizzaValue + totalTopping;
+    }
+    document.getElementById("selected_text").innerHTML = totalPrice + ' euro';
+}
+
