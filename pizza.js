@@ -1,8 +1,10 @@
 var myOl = document.getElementById("pizza");
 var myUl = document.getElementById("toppings");
+var sizeDiv = document.getElementById("sizes");
 var pizzaValue = 0;
 var totalTopping = 0;
 var totalPrice = 0;
+
 
 // all pizza's
 var pizzaList = [
@@ -15,6 +17,14 @@ var toppings = [
     {name: 'Extra ui', price: 1},
     {name: 'Extra kaas', price: 1.50},
     {name: 'Extra saus', price: 1}
+];
+
+// all sizes
+var sizes = [
+    {name: 'Normal', factor: 1},
+    {name: 'Medium', factor: 1.2},
+    {name: 'Large', factor: 1.4},
+    {name: 'Kingsize', factor: 2},
 ];
 
 // show all the pizza's in ul element
@@ -37,7 +47,7 @@ for (var x = 0; x < toppings.length; x++){
     checkbox.id = toppings[x].name + "Checkbox";
     checkbox.type = "checkbox";
     checkbox.value = toppings[x].price;
-    checkbox.onchange = function () {toppingCost(this.value)};
+    checkbox.onchange = toppingCost;
     myUl.appendChild(checkbox);
     myUl.appendChild(label);
     myUl.appendChild(br);
@@ -45,29 +55,55 @@ for (var x = 0; x < toppings.length; x++){
 
 }
 
+// show all the sizes
+for (var y = 0; y < sizes.length; y++){
+    var size = document.createElement("input");
+    var sizeName = document.createElement("label");
+    var space = document.createElement("br");
+    size.name = "size";
+    size.type = "radio";
+    size.value = sizes[y].factor;
+    size.onchange = selectSize;
+    sizeDiv.appendChild(size);
+    sizeDiv.appendChild(sizeName);
+    sizeDiv.appendChild(space);
+    sizeName.appendChild(document.createTextNode(sizes[y].name));
+
+}
+
+
 // show the info of specific pizza
 function showInfo(event){
-    document.getElementById("toppings").style.display = "block";
-    pizzaValue = 0;
+    document.getElementById("sizes").style.display = "block";
     pizzaList.forEach(function (pizza) {
         if (pizza.name == event.target.pizzaName) {
-            pizzaValue = pizzaValue + event.target.pizzaPrice;
+            pizzaValue = event.target.pizzaPrice;
             document.getElementById("selected").innerHTML = '<p>' + 'Naam:' + pizza.name + '</p>' + '<img src="' + pizza.img + '">' + '<p id="selected_text">' + pizzaValue + ' euro'+ '</p>';
         }
     });
 }
 
+// Select a pizza size
+function selectSize(event) {
+    document.getElementById("toppings").style.display = "block";
+    totalPrice = pizzaValue * event.target.value;
+    document.getElementById("selected_text").innerHTML = totalPrice + ' euro';
+}
+
 //checks toppings and counts price
 function toppingCost() {
+    document.getElementById("slices").style.display = "block";
     totalTopping = 0;
     for(var i = 0; i < toppings.length; i++ ) {
         var toppingCheckboxId = toppings[i].name + "Checkbox";
         var toppingCheckboxElement = document.getElementById(toppingCheckboxId);
         if(toppingCheckboxElement.checked){
             totalTopping = totalTopping + toppings[i].price;
+            totalPrice = totalPrice + totalTopping;
         }
-        totalPrice = pizzaValue + totalTopping;
     }
     document.getElementById("selected_text").innerHTML = totalPrice + ' euro';
 }
+
+
 
