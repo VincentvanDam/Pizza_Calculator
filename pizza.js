@@ -7,20 +7,20 @@ var totalTopping = 0;
 var totalPrice = 0;
 
 
-// all pizza's
+// All pizza's
 var pizzaList = [
     {name: 'Hawaii', img: 'img/hawaii.png', price: 4},
     {name: 'Salami', img: 'img/salami.png', price: 5},
     {name: 'Cheeseburger', img: 'img/cheeseburger.png', price: 6}];
 
-// all toppings
+// All toppings
 var toppings = [
     {name: 'Extra ui', price: 1},
     {name: 'Extra kaas', price: 1.50},
     {name: 'Extra saus', price: 1}
 ];
 
-// all sizes
+// All sizes
 var sizes = [
     {name: 'Normaal', factor: 1},
     {name: 'Medium', factor: 1.2},
@@ -28,14 +28,14 @@ var sizes = [
     {name: 'Kingsize', factor: 2},
 ];
 
-// all slices
+// All slices
 var slices = [
-    {name: 'Hele pizza', factor: 0},
+    {name: 'Hele pizza', factor: 1},
     {name: 'Halve pizza', factor: 2},
     {name: 'Kwart pizza', factor: 4},
     ];
 
-// show all the pizza's in ul element
+// Show all the pizza's in ul element
 for (var i = 0; i < pizzaList.length; i++){
     var pizza = document.createElement("li");
     pizza.pizzaName = pizzaList[i].name;
@@ -47,7 +47,7 @@ for (var i = 0; i < pizzaList.length; i++){
     pizza.appendChild(document.createTextNode(pizzaList[i].name));
 }
 
-// show all the toppings
+// Show all the toppings
 for (var x = 0; x < toppings.length; x++){
     var checkbox = document.createElement("input");
     var label = document.createElement("label");
@@ -63,7 +63,7 @@ for (var x = 0; x < toppings.length; x++){
 
 }
 
-// show all the sizes
+// Show all the sizes
 for (var y = 0; y < sizes.length; y++){
     var size = document.createElement("input");
     var sizeName = document.createElement("label");
@@ -78,18 +78,16 @@ for (var y = 0; y < sizes.length; y++){
     sizeName.appendChild(document.createTextNode(sizes[y].name));
 }
 
-
-for (var z = 0; x < slices.length; z++){
+// Shows all the slice options
+for (var z = 0; z < slices.length; z++){
     var slice = document.createElement("input");
     var sliceName = document.createElement("label");
-    var spatie = document.createElement("br");
     slice.name = "slice";
     slice.type = "radio";
     slice.value = slices[z].factor;
     slice.onchange = selectSlice;
     sliceDiv.appendChild(slice);
     sliceDiv.appendChild(sliceName);
-    sliceDiv.appendChild(spatie);
     sliceDiv.appendChild(document.createTextNode(slices[z].name));
 }
 
@@ -109,14 +107,14 @@ function showInfo(event){
 // Select a pizza size
 function selectSize(event) {
     document.getElementById("toppings").style.display = "block";
+    document.getElementById("slices").style.display = "block";
     totalPrice = pizzaValue * event.target.value;
-    document.getElementById("selected_text").innerHTML = totalPrice + ' euro';
+    document.getElementById("selected_text").innerHTML = totalPrice.toFixed(2) + ' euro';
 }
 
 
-//checks toppings and counts price
+//Checks toppings and counts price
 function toppingCost() {
-    document.getElementById("slices").style.display = "block";
     totalTopping = 0;
     for(var i = 0; i < toppings.length; i++ ) {
         var toppingCheckboxId = toppings[i].name + "Checkbox";
@@ -126,12 +124,13 @@ function toppingCost() {
             totalPrice = totalPrice + totalTopping;
         }
     }
-    document.getElementById("selected_text").innerHTML = totalPrice + ' euro';
+    document.getElementById("selected_text").innerHTML = totalPrice.toFixed(2) + ' euro';
 }
 
-
-function selectSlice() {
-    
+// Calculate price by slice
+function selectSlice(event) {
+    totalPrice = totalPrice / event.target.value;
+    document.getElementById("selected_text").innerHTML = totalPrice.toFixed(2) + ' euro';
 }
 
 
