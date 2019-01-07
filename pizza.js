@@ -1,6 +1,7 @@
 var myOl = document.getElementById("pizza");
 var myUl = document.getElementById("toppings");
 var sizeDiv = document.getElementById("sizes");
+var sliceDiv = document.getElementById("slices");
 var pizzaValue = 0;
 var totalTopping = 0;
 var totalPrice = 0;
@@ -21,11 +22,18 @@ var toppings = [
 
 // all sizes
 var sizes = [
-    {name: 'Normal', factor: 1},
+    {name: 'Normaal', factor: 1},
     {name: 'Medium', factor: 1.2},
-    {name: 'Large', factor: 1.4},
+    {name: 'Groot', factor: 1.4},
     {name: 'Kingsize', factor: 2},
 ];
+
+// all slices
+var slices = [
+    {name: 'Hele pizza', factor: 0},
+    {name: 'Halve pizza', factor: 2},
+    {name: 'Kwart pizza', factor: 4},
+    ];
 
 // show all the pizza's in ul element
 for (var i = 0; i < pizzaList.length; i++){
@@ -68,7 +76,21 @@ for (var y = 0; y < sizes.length; y++){
     sizeDiv.appendChild(sizeName);
     sizeDiv.appendChild(space);
     sizeName.appendChild(document.createTextNode(sizes[y].name));
+}
 
+
+for (var z = 0; x < slices.length; z++){
+    var slice = document.createElement("input");
+    var sliceName = document.createElement("label");
+    var spatie = document.createElement("br");
+    slice.name = "slice";
+    slice.type = "radio";
+    slice.value = slices[z].factor;
+    slice.onchange = selectSlice;
+    sliceDiv.appendChild(slice);
+    sliceDiv.appendChild(sliceName);
+    sliceDiv.appendChild(spatie);
+    sliceDiv.appendChild(document.createTextNode(slices[z].name));
 }
 
 
@@ -83,12 +105,14 @@ function showInfo(event){
     });
 }
 
+
 // Select a pizza size
 function selectSize(event) {
     document.getElementById("toppings").style.display = "block";
     totalPrice = pizzaValue * event.target.value;
     document.getElementById("selected_text").innerHTML = totalPrice + ' euro';
 }
+
 
 //checks toppings and counts price
 function toppingCost() {
@@ -105,5 +129,9 @@ function toppingCost() {
     document.getElementById("selected_text").innerHTML = totalPrice + ' euro';
 }
 
+
+function selectSlice() {
+    
+}
 
 
